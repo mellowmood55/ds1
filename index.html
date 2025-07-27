@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derrick Adang - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins and Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Custom styles for smooth scrolling and animations */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif; /* Default body font */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text color */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif; /* Headings font */
+        }
+
+        /* Keyframe for fade-in-up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+
+        /* Mobile menu specific styles */
+        .mobile-menu {
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.active {
+            max-height: 500px; /* Adjust as needed to fit content */
+        }
+
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748; /* Darker track */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568; /* Slightly lighter thumb */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1; /* Indigo on hover */
+        }
+
+        /* Timeline specific styles */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #4a5568; /* Timeline line color */
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        .timeline-item-content {
+            width: calc(50% - 30px);
+            background: #2d3748; /* Card background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 1px solid #4a5568;
+            transition: transform 0.3s ease-in-out;
+        }
+        .timeline-item-content:hover {
+            transform: translateY(-5px);
+        }
+        .timeline-item-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .timeline-item:nth-child(even) .timeline-item-content::after {
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #2d3748;
+            right: -10px;
+        }
+        .timeline-item:nth-child(odd) .timeline-item-content::after {
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #2d3748 transparent transparent;
+            left: -10px;
+        }
+        .timeline-item-dot {
+            width: 20px;
+            height: 20px;
+            background: #6366f1; /* Dot color */
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            z-index: 1;
+            border: 3px solid #1a202c; /* Border to match background */
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+                transform: translateX(0);
+            }
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+            }
+            .timeline-item-content {
+                width: calc(100% - 50px);
+                margin-left: 50px;
+            }
+            .timeline-item-content::after {
+                border-width: 10px 10px 0 0 !important;
+                border-color: transparent #2d3748 transparent transparent !important;
+                left: 20px !important;
+                top: -10px !important;
+            }
+            .timeline-item-dot {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900 text-gray-100 antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-800 shadow-lg rounded-b-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-400">Derrick Adang</h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-home"></i>
+                    <span class="text-sm">Home</span>
+                </a>
+                <a href="#about" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-user"></i>
+                    <span class="text-sm">About</span>
+                </a>
+                <a href="#experience" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="text-sm">Experience</span>
+                </a>
+                <a href="#education" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="text-sm">Education</span>
+                </a>
+                <a href="#certifications" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-certificate"></i>
+                    <span class="text-sm">Certifications</span>
+                </a>
+                <a href="#skills" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-cogs"></i>
+                    <span class="text-sm">Skills</span>
+                </a>
+                <a href="#volunteer" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-hands-helping"></i>
+                    <span class="text-sm">Volunteer</span>
+                </a>
+                <a href="#contact" class="nav-item flex items-center space-x-2 px-3 py-2 rounded-md transition duration-200 text-gray-300 hover:bg-gray-700 hover:text-indigo-400">
+                    <i class="fas fa-envelope"></i>
+                    <span class="text-sm">Contact</span>
+                </a>
+            </div>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu Content -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-gray-800 shadow-sm pb-4">
+            <a href="#home" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-home mr-2"></i><span>Home</span></a>
+            <a href="#about" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-user mr-2"></i><span>About</span></a>
+            <a href="#experience" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-briefcase mr-2"></i><span>Experience</span></a>
+            <a href="#education" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-graduation-cap mr-2"></i><span>Education</span></a>
+            <a href="#certifications" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-certificate mr-2"></i><span>Certifications</span></a>
+            <a href="#skills" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-cogs mr-2"></i><span>Skills</span></a>
+            <a href="#volunteer" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-hands-helping mr-2"></i><span>Volunteer</span></a>
+            <a href="#contact" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 nav-item flex items-center space-x-2"><i class="fas fa-envelope mr-2"></i><span>Contact</span></a>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white overflow-hidden pt-16">
+        <div class="container mx-auto px-4 text-center z-10">
+            <img
+                src="./1694083123159.jpeg"
+                alt="Derrick Adang Profile"
+                class="w-44 h-44 rounded-full mx-auto mb-6 border-4 border-indigo-500 shadow-lg object-cover"
+                onerror="this.onerror=null;this.src='https://placehold.co/180x180/4F46E5/FFFFFF?text=Derrick+Adang';"
+            />
+            <h2 class="text-5xl font-extrabold mb-4 animate-fade-in-up">Hello, I'm <span class="text-indigo-400">Derrick Adang</span></h2>
+            <p class="text-xl mb-8 opacity-90 animate-fade-in-up delay-200">Business Development | Client Relations | Tender Management</p>
+            <p class="text-lg max-w-2xl mx-auto mb-10 opacity-80 animate-fade-in-up delay-400">
+                A dedicated professional with a robust background in project support, client engagement, and driving business growth. I leverage data-driven insights to foster impactful solutions and build lasting relationships.
+            </p>
+            <div class="flex justify-center space-x-4 animate-fade-in-up delay-600">
+                <!-- Removed "View My Work" button -->
+                <!-- Removed "Download CV" button -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">About Me</h3>
+            <div class="max-w-4xl mx-auto text-lg text-gray-300 leading-relaxed space-y-6 bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700">
+                <p>
+                    My professional journey is rooted in a diverse background spanning Data Science, Business Development, and impactful Community Service. This unique blend allows me to approach challenges with both analytical rigor and a deep understanding of human needs.
+                </p>
+                <p>
+                    I am currently enhancing my expertise by pursuing a <span class="font-semibold text-indigo-300">Master’s in Data Science and Analytics at Strathmore University</span>, where I am delving into advanced concepts of Big Data and Machine Learning. This academic pursuit complements my practical experience, enabling me to derive actionable insights from complex datasets.
+                </p>
+                <p>
+                    My passion lies in applying data and project management skills to drive growth in business sectors and contribute meaningfully to humanitarian initiatives. I am committed to leveraging technology and strategic thinking to create positive change and achieve measurable outcomes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section id="experience" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Work Experience</h3>
+            <div class="timeline max-w-5xl mx-auto">
+                <!-- Cummins C&G Limited -->
+                <div class="timeline-item">
+                    <div class="timeline-item-dot"></div>
+                    <div class="timeline-item-content">
+                        <h4 class="text-2xl font-semibold text-indigo-300 mb-2">Cummins C&G Limited</h4>
+                        <p class="text-lg text-gray-400 mb-3">Full-time</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>Galooli Generator Monitoring: Managed remote monitoring systems for generators, ensuring optimal performance and proactive maintenance.</li>
+                            <li>Government Business Admin: Handled administrative aspects of government tenders and projects, ensuring compliance and smooth execution.</li>
+                            <li>LEDL Motor Lead: Coordinated activities related to LEDL motors, including sales support and technical liaison.</li>
+                        </ul>
+                        <p class="text-sm text-gray-400">
+                            <span class="font-semibold text-indigo-200">Skills:</span> Data analysis, Preventive maintenance, Tender/project management, Business development, Market research
+                        </p>
+                    </div>
+                </div>
+
+                <!-- KCB Bank Group -->
+                <div class="timeline-item">
+                    <div class="timeline-item-dot"></div>
+                    <div class="timeline-item-content">
+                        <h4 class="text-2xl font-semibold text-indigo-300 mb-2">KCB Bank Group</h4>
+                        <p class="text-lg text-gray-400 mb-3">Jan 2023 – Aug 2023</p>
+                        <p class="text-gray-300 mb-4">
+                            Role: Customer Service
+                        </p>
+                        <p class="text-sm text-gray-400">
+                            <span class="font-semibold text-indigo-200">Skills:</span> CRM, Collaborative problem solving, Cross-selling
+                        </p>
+                    </div>
+                </div>
+
+                <!-- AMREF -->
+                <div class="timeline-item">
+                    <div class="timeline-item-dot"></div>
+                    <div class="timeline-item-content">
+                        <h4 class="text-2xl font-semibold text-indigo-300 mb-2">AMREF</h4>
+                        <p class="text-lg text-gray-400 mb-3">May 2021 – Nov 2022</p>
+                        <p class="text-gray-300 mb-4">
+                            Role: Project Assistant
+                        </p>
+                        <p class="text-sm text-gray-400">
+                            <span class="font-semibold text-indigo-200">Skills:</span> Project coordination, Administrative support, Community engagement
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Education</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Strathmore University -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
+                    <h4 class="text-2xl font-semibold text-indigo-300 mb-2">Strathmore University</h4>
+                    <p class="text-lg text-gray-400 mb-3">MSc in Data Science & Analytics</p>
+                    <p class="text-gray-300">
+                        Focus: Big Data, Machine Learning, Statistical Modeling, Predictive Analytics.
+                    </p>
+                </div>
+                <!-- Technical University of Kenya -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
+                    <h4 class="text-2xl font-semibold text-indigo-300 mb-2">Technical University of Kenya</h4>
+                    <p class="text-lg text-gray-400 mb-3">Previous Undergraduate Studies</p>
+                    <p class="text-gray-300">
+                        Details of previous undergraduate studies (e.g., Bachelor's in [Your Field]).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Certifications</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Certification Card -->
+                <a href="https://www.linkedin.com/learning/certificates/placeholder-link-1" target="_blank" rel="noopener noreferrer" class="block bg-gray-700 p-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105 border border-gray-600">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-award text-indigo-400 text-3xl mr-4"></i>
+                        <h4 class="text-xl font-semibold text-gray-100">Project Management Foundations</h4>
+                    </div>
+                    <p class="text-gray-300 text-sm">Issued by LinkedIn Learning</p>
+                </a>
+                <a href="https://www.linkedin.com/learning/certificates/placeholder-link-2" target="_blank" rel="noopener noreferrer" class="block bg-gray-700 p-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105 border border-gray-600">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-bar text-indigo-400 text-3xl mr-4"></i>
+                        <h4 class="text-xl font-semibold text-gray-100">Power BI Data Modeling with DAX</h4>
+                    </div>
+                    <p class="text-gray-300 text-sm">Issued by LinkedIn Learning</p>
+                </a>
+                <a href="https://www.linkedin.com/learning/certificates/placeholder-link-3" target="_blank" rel="noopener noreferrer" class="block bg-gray-700 p-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105 border border-gray-600">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-user-tie text-indigo-400 text-3xl mr-4"></i>
+                        <h4 class="text-xl font-semibold text-gray-100">How to Build Credibility as a Leader</h4>
+                    </div>
+                    <p class="text-gray-300 text-sm">Issued by LinkedIn Learning</p>
+                </a>
+                <a href="https://www.linkedin.com/learning/certificates/placeholder-link-4" target="_blank" rel="noopener noreferrer" class="block bg-gray-700 p-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105 border border-gray-600">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-heartbeat text-indigo-400 text-3xl mr-4"></i>
+                        <h4 class="text-xl font-semibold text-gray-100">Healthcare Data Science</h4>
+                    </div>
+                    <p class="text-gray-300 text-sm">Issued by LinkedIn Learning</p>
+                </a>
+                <a href="https://www.linkedin.com/learning/certificates/placeholder-link-5" target="_blank" rel="noopener noreferrer" class="block bg-gray-700 p-6 rounded-lg shadow-md hover:bg-gray-600 transition duration-300 transform hover:scale-105 border border-gray-600">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-shield-alt text-indigo-400 text-3xl mr-4"></i>
+                        <h4 class="text-xl font-semibold text-gray-100">COVID-19 Training for Health Workers</h4>
+                    </div>
+                    <p class="text-gray-300 text-sm">Issued by LinkedIn Learning</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Skills</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+                <!-- Skill Card -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-chart-line text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Data Analysis</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-tools text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Technical Support</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-search-dollar text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Market Research</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-project-diagram text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Tender & Project Management</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-file-excel text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Microsoft Office</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 border border-gray-700">
+                    <i class="fas fa-handshake text-indigo-400 text-4xl mb-3"></i>
+                    <p class="text-lg font-semibold text-gray-100 text-center">Customer Relationship Management (CRM)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Work Section -->
+    <section id="volunteer" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Volunteer Work</h3>
+            <div class="max-w-3xl mx-auto space-y-8">
+                <!-- Volunteer Item 1 -->
+                <div class="bg-gray-700 p-6 rounded-lg shadow-md flex items-center space-x-6 transform hover:scale-105 transition duration-300 border border-gray-600">
+                    <i class="fas fa-globe text-indigo-400 text-4xl flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-100">Rotaract Club of Lang’ata</h4>
+                        <p class="text-gray-300 mb-1">Club Secretary (2017–2020)</p>
+                        <p class="text-sm text-gray-400">Managed club records, communications, and supported various community service projects.</p>
+                    </div>
+                </div>
+                <!-- Volunteer Item 2 -->
+                <div class="bg-gray-700 p-6 rounded-lg shadow-md flex items-center space-x-6 transform hover:scale-105 transition duration-300 border border-gray-600">
+                    <i class="fas fa-hands-helping text-indigo-400 text-4xl flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-100">Rotaract District 9212</h4>
+                        <p class="text-gray-300 mb-1">ExCo Chair, Disaster & Humanitarian Relief (Jul 2024 – present)</p>
+                        <p class="text-sm text-gray-400">Leading initiatives for disaster preparedness and humanitarian aid within the district.</p>
+                    </div>
+                </div>
+                <!-- Volunteer Item 3 -->
+                <div class="bg-gray-700 p-6 rounded-lg shadow-md flex items-center space-x-6 transform hover:scale-105 transition duration-300 border border-gray-600">
+                    <i class="fas fa-users text-indigo-400 text-4xl flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-100">Rotaract Club of Syokimau</h4>
+                        <p class="text-gray-300 mb-1">Member (Jan 2024 – present)</p>
+                        <p class="text-sm text-gray-400">Active member participating in local community development and service projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section (Optional) -->
+    <section id="projects" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Item 1 -->
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-700 p-6">
+                    <h4 class="text-xl font-semibold text-gray-100 mb-2">Generator Monitoring Rollout</h4>
+                    <p class="text-gray-300 text-sm mb-4">Successfully implemented Galooli generator monitoring systems across multiple sites, improving efficiency and reducing downtime.</p>
+                    <!-- Removed "View Details" link -->
+                </div>
+                <!-- Project Item 2 -->
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-700 p-6">
+                    <h4 class="text-xl font-semibold text-gray-100 mb-2">Business Development Campaign</h4>
+                    <p class="text-gray-300 text-sm mb-4">Led a market research and outreach campaign resulting in a significant increase in client engagement and lead generation.</p>
+                    <!-- Removed "View Details" link -->
+                </div>
+                <!-- Project Item 3 -->
+                <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-700 p-6">
+                    <h4 class="text-xl font-semibold text-gray-100 mb-2">Community Relief Initiative</h4>
+                    <p class="text-gray-300 text-sm mb-4">Organized and executed a successful humanitarian relief project, coordinating volunteers and resource distribution.</p>
+                    <!-- Removed "View Details" link -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-indigo-400 mb-12">Get In Touch</h3>
+            <div class="max-w-xl mx-auto bg-gray-900 p-8 rounded-lg shadow-xl border border-gray-700">
+                <p class="text-lg text-gray-300 text-center mb-6">
+                    Have a project in mind, a collaboration opportunity, or just want to connect? Feel free to reach out!
+                </p>
+                <form class="space-y-6 contact-form">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-100 sm:text-sm"
+                            placeholder="Your Name"
+                        />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-100 sm:text-sm"
+                            placeholder="your.email@example.com"
+                        />
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-100 sm:text-sm"
+                            placeholder="Your message..."
+                        ></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-md shadow-md hover:bg-indigo-700 transition duration-300"
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            <div class="flex justify-center space-x-6 mt-12">
+                <a href="https://linkedin.com/in/derrick-adang" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-indigo-400 transition duration-300 transform hover:scale-110" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <a href="mailto:adangderrick2@gmail.com" class="text-gray-300 hover:text-indigo-400 transition duration-300 transform hover:scale-110" aria-label="Email">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+                <!-- Add more social links as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center rounded-t-lg">
+        <div class="container mx-auto px-4">
+            <p>&copy; <span id="current-year"></span> Derrick Adang. All rights reserved.</p>
+            <!-- Removed "Built with HTML, Tailwind CSS, and JavaScript" line -->
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu after clicking a link
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Basic form submission handling (prevents default, you'd integrate a backend here)
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In a real application, you would send this data to a backend server.
+            console.log('Contact form submitted!');
+            this.reset(); // Clear the form
+        });
+    </script>
+</body>
+</html>
